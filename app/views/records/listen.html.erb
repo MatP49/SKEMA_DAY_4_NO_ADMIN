@@ -1,0 +1,112 @@
+<style>
+	.container2 {
+  align-items: flex-start;
+  display: flex;
+  height: 10em;
+}
+
+.container1 {
+  align-items: flex-start;
+  display: flex;
+  height: 5em;
+}
+</style>
+
+<div class="container1"> </div>
+
+<center>
+
+<h1 id="myHeader" style="font-family: 'Lobster', cursive;", serif;> Speech recognition </h1>
+
+<link href="https://fonts.googleapis.com/css?family=Lobster&display=swap" rel="stylesheet">
+
+<div class="container2"> </div>
+</center>
+
+
+
+        <body class="splash2">
+       
+<div class="container">
+  <div class="row">
+    <div class="text-center align-self-center col-sm-4">
+
+        <a href="/records/listen" class="btn btn-warning btn-lg">Delete recording</a>
+    
+    </div>
+    <div class="text-center align-self-center col-sm-4">
+     <button onclick="reco()"  style="margin:auto;display:block"> <%= image_tag "play.png",  width: "60%", class: "mx-auto d-block", :alt => "play" %></button>
+    </div>
+   
+
+
+    <div class="text-center align-self-center col-sm-4" >
+       
+        <a href="/" class="btn btn-primary btn-lg">Go back</a>
+        
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+<link href="https://fonts.googleapis.com/css?family=Ubuntu:400,400i&display=swap" rel="stylesheet">
+
+        
+        <div style="font-family: 'Ubuntu', sans-serif;"
+type="text" id="data" align="center"></div>
+      
+
+
+         </body>
+
+
+
+
+
+
+
+
+        <script>
+
+
+
+            function reco(){
+
+                var result = document.getElementById("data");
+
+            if("webkitSpeechRecognition" in window){
+                var textt = new webkitSpeechRecognition();
+                textt.continuous = true;
+                textt.interimResults = true;
+                textt.lang = "en-US";
+                textt.start();
+                
+                var lastversion = "";
+
+                textt.onresult = function(event){
+
+                    var midversion = "";
+                    for(var k=event.resultIndex; k<event.results.length; k++){
+                        var datum = event.results[k][0].transcript;
+
+                        datum.replace("\n", "<br>");
+                        if(event.results[k].isFinal){lastversion += datum;}
+                        else{ midversion += datum; }
+                        result.innerHTML = lastversion + '<span style="color: #999; font-size: 24pt">' + midversion + '</span>';} };
+                textt.onerror = function(event){};}
+            else{ result.innerHTML = "Sorry, please use Google Chrome";} }
+
+
+
+
+        </script>
+    </head>
+   
+
+
+
+</html>
